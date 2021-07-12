@@ -4,13 +4,6 @@
 include "func.php";
 $file = unzip();
 // var_dump($_GET);
-if (isset($_GET["directory"])) {
-    //echoSpecifiedDirectory($_GET["directory"]);
-    echo "test";
-} else {
-    echoImage($file);
-}
-var_dump(exif_read_data("exctractedFile\\20210705\\P1110051.JPG"));
 ?>
 
 <head>
@@ -18,19 +11,10 @@ var_dump(exif_read_data("exctractedFile\\20210705\\P1110051.JPG"));
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="jquery-3.6.0.min.js"></script>
-    <script src="node_modules\exif-js\exif.js"></script>
     <script>
-        window.onload = getExif;
-        img1 = "exctractedFile\\20210705\\P1110051.JPG";
-        EXIF.getData(img1, function() {
-            var make = EXIF.getTag(this, "Make");
-            var model = EXIF.getTag(this, "Model");
-            var makeAndModel = document.getElementById("makeAndModel");
-            makeAndModel.innerHTML = `${make} ${model}`;
-        });
-
         $(function() {
             $(".directory").click(function() {
+                console.log(this.innerText);
                 var day = this.innerText;
                 $.ajax({
                     type: "GET",
@@ -39,9 +23,15 @@ var_dump(exif_read_data("exctractedFile\\20210705\\P1110051.JPG"));
                         directory: this.innerText
                     },
                     dataType: 'json',
+                    error: function(test) {
+                        console.log(test);
+                    },
                     success: function(response) {
-                        console.log(response)
-                        $("div").append('<img src="exctractedFile\\' + day + '\\' + response[2] + '" alt="">')
+                        console.log(response);
+                        $("div").empty();
+                        $.each(Object.keys(response), function() {
+                            $("div").append('<img height="' + response[this][0] + '" width="' + response[this][1] + '" src="exctractedFile\\' + day + '\\' + this + '" alt="' + this + '">')
+                        })
                     }
                 })
             });
@@ -52,11 +42,12 @@ var_dump(exif_read_data("exctractedFile\\20210705\\P1110051.JPG"));
 </head>
 
 <body>
-    <?php
-    //echoSpecifiedDirectory("20210705");
-    ?>
     <?php echoDirectory(); ?>
-    <div></div>
+    <div>
+        <?php
+        echoImage($file);
+        ?>
+    </div>
 </body>
 
 </html>
