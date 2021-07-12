@@ -30,7 +30,7 @@ $file = unzip();
                         console.log(response);
                         $("div").empty();
                         $.each(Object.keys(response), function() {
-                            $("div").append('<img height="' + response[this][0] + '" width="' + response[this][1] + '" src="..\..\exctractedFile\\' + day + '\\' + this + '" alt="' + this + '">')
+                            $("div").append('<img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '">')
                         })
                     }
                 })

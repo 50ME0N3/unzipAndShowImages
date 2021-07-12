@@ -12,7 +12,7 @@
 <body>
     <div class="login-box">
         <h2>Login</h2>
-        <form autocomplete="off">
+        <form autocomplete="off" id="my_form">
             <div class="user-box">
                 <input type="text" name="username" required="">
                 <label for="username">Username</label>
@@ -21,13 +21,13 @@
                 <input type="password" name="password" required="">
                 <label for="password">Password</label>
             </div>
-            <a href="#">
+            <a href="javascript:{}" onclick="document.getElementById('my_form').submit();">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
                 Submit
-            </a>
+            </>
         </form>
     </div>
 </body>
