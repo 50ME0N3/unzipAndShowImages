@@ -47,9 +47,7 @@ function echoAllUsers()
 	echo '<center>
 			<table id="users">
 			<tr>
-			<td>Prenom</td>
-			<td>Nom</td>
-			<td>Age</td>
+			<td>Username</td>
 			<td>Role</td>';
 	if (count($_SESSION) != 0) {
 		if ($_SESSION["admin"]) {
@@ -61,9 +59,7 @@ function echoAllUsers()
 	foreach ($result as $value) {
 		echo "<tr>
 			<td>" . $value[1] . "</td>
-			<td>" . $value[2] . "</td>
-			<td>" . $value[3] . "</td>
-			<td>" . $value[7] . "</td>
+			<td>" . $value[5] . "</td>
 			";
 		if (count($_SESSION) != 0) {
 			if ($_SESSION["admin"]) {

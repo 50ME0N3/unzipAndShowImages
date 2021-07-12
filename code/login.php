@@ -1,3 +1,6 @@
+<?php
+include "dao.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
