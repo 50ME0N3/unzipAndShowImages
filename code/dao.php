@@ -23,7 +23,6 @@ function createNewUser($username, $pwd)
 function login($username, $Password)
 {
 	$conn = myPdo();
-    $query = "";
 	try {
 	    global $query;
 		$query = $conn->prepare('SELECT `username`, Roles_idRoles from users where `Username`=:username and `Password`=:pwd limit 1');

@@ -21,11 +21,11 @@ if(isset($_POST["username"])){
         <h2>Sign in</h2>
         <form autocomplete="off" id="my_form" method="post">
             <div class="user-box">
-                <input type="text" name="username" required="">
+                <input type="text" name="username" id="username" required="">
                 <label for="username">Username</label>
             </div>
             <div class="user-box">
-                <input type="password" name="password" required="">
+                <input type="password" name="password" id="password" required="">
                 <label for="password">Password</label>
             </div>
             <a href="javascript:{}" onclick="document.getElementById('my_form').submit();">
