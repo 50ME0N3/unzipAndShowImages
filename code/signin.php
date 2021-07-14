@@ -1,8 +1,9 @@
 <?php
 include "dao.php";
 if(isset($_POST["username"])){
-   login(filter_input(INPUT_POST,"username",FILTER_SANITIZE_STRING),md5(filter_input(INPUT_POST,"password",FILTER_SANITIZE_STRING)));
+    createNewUser(filter_input(INPUT_POST,"username",FILTER_SANITIZE_STRING),md5(filter_input(INPUT_POST,"password",FILTER_SANITIZE_STRING)));
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +18,7 @@ if(isset($_POST["username"])){
 
 <body>
     <div class="login-box">
-        <h2>Login</h2>
+        <h2>Sign in</h2>
         <form autocomplete="off" id="my_form" method="post">
             <div class="user-box">
                 <input type="text" name="username" required="">

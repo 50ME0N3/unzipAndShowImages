@@ -1,23 +1,33 @@
 <?php
 require_once 'dbUtil.php';
 session_start();
-function createNewUser($firstName, $lastName, $age, $pwd)
+function createNewUser($username, $pwd)
 {
-	$conn = myPdo();
-	$query = $conn->prepare('INSERT INTO users SELECT null, :firstName, :lastName, :age, :pwd, idRoles FROM roles WHERE NomRole = "Utilisateur normal"');
-	$query->bindParam(':firstName', $firstName, PDO::PARAM_STR);
-	$query->bindParam(':lastName', $lastName, PDO::PARAM_STR);
-	$query->bindParam(':age', $age, PDO::PARAM_INT);
-	$query->bindParam(':pwd', $pwd, PDO::PARAM_STR);
-	$query->execute();
+    $conn = myPdo();
+    $query = $conn->prepare('SELECT `username`, Roles_idRoles from users where `Username`=:username limit 1');
+    $query->bindParam(':username', $username, PDO::PARAM_STR);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    var_dump($result);
+    if($result == null){
+        $query = $conn->prepare('INSERT INTO users SELECT null, :username, :pwd, idRoles FROM roles WHERE NomRole = "visiteur"');
+        $query->bindParam(':username', $username, PDO::PARAM_STR);
+        $query->bindParam(':pwd', $pwd, PDO::PARAM_STR);
+        $query->execute();
+        header("location: login.php");
+    }
+    else{
+        echo "Le nom d'utilisateur est déja utilisé";
+    }
 }
-function login($name, $lastname, $Password)
+function login($username, $Password)
 {
 	$conn = myPdo();
+    $query = "";
 	try {
-		$query = $conn->prepare('SELECT `name`, lastname, Roles_idRoles from users where lastname=:lastname and `name`=:firstname and pwd=:pwd limit 1');
-		$query->bindParam(':firstname', $name, PDO::PARAM_STR);
-		$query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
+	    global $query;
+		$query = $conn->prepare('SELECT `username`, Roles_idRoles from users where `Username`=:username and `Password`=:pwd limit 1');
+		$query->bindParam(':username', $username, PDO::PARAM_STR);
 		$query->bindParam(':pwd', $Password, PDO::PARAM_STR);
 		$query->execute();
 		$result = $query->fetch(PDO::FETCH_ASSOC);
@@ -26,14 +36,14 @@ function login($name, $lastname, $Password)
 		var_dump($query);
 		var_dump($e->getMessage());
 	}
+	var_dump($result);
 	if ($result["Roles_idRoles"] == 1) {
 		$admin = true;
 	} else {
 		$admin = false;
 	}
 	if (count($result) > 0) {
-		$_SESSION["name"] = $name;
-		$_SESSION["lastname"] = $lastname;
+		$_SESSION["username"] = $username;
 		$_SESSION["pwd"] = $Password;
 		$_SESSION["admin"] = $admin;
 		header("location: index.php", true);

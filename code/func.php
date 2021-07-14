@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET["directory"])) {
     $pic = array();
     $dividedBy = 20;
