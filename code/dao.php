@@ -36,10 +36,13 @@ function login($username, $Password)
 		var_dump($e->getMessage());
 	}
 	var_dump($result);
+	$admin = false;
 	if ($result["Roles_idRoles"] == 1) {
-		$admin = true;
+		global $admin;
+        $admin = true;
 	} else {
-		$admin = false;
+		global $admin;
+        $admin = false;
 	}
 	if (count($result) > 0) {
 		$_SESSION["username"] = $username;
@@ -99,7 +102,7 @@ function update($username, $pwd, $id)
 	$query->bindParam(':id', $id, PDO::PARAM_INT);
 	$query->execute();
 	echo $username . "<br>" . $pwd . "<br>" . $id;
-	//header("location: index.php");
+	header("location: index.php");
 }
 function delete($username)
 {

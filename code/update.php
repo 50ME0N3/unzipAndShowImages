@@ -9,7 +9,7 @@ if ($_POST) {
     $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
     $pwd = md5(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING));
-    update($_username,$pwd, $id);
+    update($username,$pwd, $id);
 }
 ?>
 <!DOCTYPE html>
