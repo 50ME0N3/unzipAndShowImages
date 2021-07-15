@@ -72,8 +72,8 @@ function echoAllUsers()
 			";
 		if (count($_SESSION) != 0) {
 			if ($_SESSION["admin"]) {
-				echo "<td><a class=\"btn2\" href=\"update.php?name=" . $value[1] . "&lastname=" . $value[2] . "\">modifier</a></td>";
-				echo "<td><a class=\"btn2\" href=\"delete.php?name=" . $value[1] . "&lastname=" . $value[2] . "\">supprimer</a></td>";
+				echo "<td><a class=\"btn2\" href=\"update.php?name=" . $value[1] . "\">modifier</a></td>";
+				echo "<td><a class=\"btn2\" href=\"delete.php?name=" . $value[1] . "\">supprimer</a></td>";
 			}
 		}
 		echo "</tr>";
@@ -81,33 +81,31 @@ function echoAllUsers()
 	echo "</table>
 	</center>";
 }
-function getInfo($name, $lastname)
+function getInfo($username)
 {
 	$conn = myPdo();
-	$sel = $conn->prepare("SELECT idUsers, name, lastname, age, NomRole from users INNER JOIN roles on users.Roles_idRoles = roles.idRoles where lastname=? and name=? limit 1");
-	$sel->execute(array($lastname, $name,));
-	$tab = $sel->fetchAll();
-	return $tab;
+	$sel = $conn->prepare("SELECT idUsers, username, NomRole from users INNER JOIN roles on users.Roles_idRoles = roles.idRoles where username=:username limit 1");
+	$sel->bindParam(':username',$username,PDO::PARAM_STR);
+	$sel->execute();
+	return $sel->fetchAll();
 }
 
-function update($name, $lastname, $age, $pwd, $id)
+function update($username, $pwd, $id)
 {
 	$conn = myPdo();
-	$query = $conn->prepare('UPDATE users SET `name`=:firstname, `lastname`=:lastname, `age`=:age, `pwd`=:pwd WHERE `idUsers` = :id');
-	$query->bindParam(':firstname', $name, PDO::PARAM_STR);
-	$query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
-	$query->bindParam(':age', $age, PDO::PARAM_INT);
+	$query = $conn->prepare('UPDATE users SET `Username`=:username, `Password`=:pwd WHERE `idUsers` = :id');
+	$query->bindParam(':username', $username, PDO::PARAM_STR);
 	$query->bindParam(':pwd', $pwd, PDO::PARAM_STR);
 	$query->bindParam(':id', $id, PDO::PARAM_INT);
 	$query->execute();
-	header("location: index.php");
+	echo $username . "<br>" . $pwd . "<br>" . $id;
+	//header("location: index.php");
 }
-function delete($name, $lastname)
+function delete($username)
 {
 	$conn = myPdo();
 	$query = $conn->prepare('DELETE FROM users WHERE `name`=:firstname and `lastname`=:lastname');
-	$query->bindParam(':firstname', $name, PDO::PARAM_STR);
-	$query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
+	$query->bindParam(':firstname', $username, PDO::PARAM_STR);
 	$query->execute();
 	header("location: index.php");
 }
