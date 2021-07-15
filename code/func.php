@@ -60,10 +60,8 @@ function unzip()
 }
 function echoImage($lastModified)
 {
-    global $dividedBy;
     foreach (scandir('..\..\exctractedFile\\' . substr($lastModified, 0, -4)) as $item) {
         if ($item != "." && $item != "..") {
-            $imageInfo = getimagesize('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item);
             //var_dump(exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"]);
             if (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 1) {
                 echo '<img height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';

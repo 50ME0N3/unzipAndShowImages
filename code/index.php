@@ -33,14 +33,7 @@ $file = unzip();
                         $("div").empty();
                         let i = -1;
                         $.each(Object.keys(response), function() {
-                            console.log(i);
-                            if(i % 3 === 0) {
-                                $("div").append('<img class="margin" height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '">')
-                            }
-                            else{
-                                $("div").append('<img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '">')
-                            }
-                            i++;
+                            $("div").append('<img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '">')
                         })
                     }
                 })

@@ -13,3 +13,6 @@ div{
 body{
     background: linear-gradient(#141e30, #243b55);
 }
+img{
+    border: solid white 2px;
+}
