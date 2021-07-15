@@ -107,8 +107,8 @@ function update($username, $pwd, $id)
 function delete($username)
 {
 	$conn = myPdo();
-	$query = $conn->prepare('DELETE FROM users WHERE `name`=:firstname and `lastname`=:lastname');
-	$query->bindParam(':firstname', $username, PDO::PARAM_STR);
+	$query = $conn->prepare('DELETE FROM users WHERE `username`=:username');
+	$query->bindParam(':username', $username, PDO::PARAM_STR);
 	$query->execute();
 	header("location: index.php");
 }

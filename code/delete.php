@@ -5,8 +5,8 @@ if (!$_SESSION["admin"]) {
 }
 $username = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
 $info = getInfo($username);
-if ($_POST) {
-    $username = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
+if (isset($_POST["username"])) {
+    $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
     delete($username);
 }
 ?>
@@ -22,16 +22,27 @@ if ($_POST) {
 </head>
 
 <body>
-    <center>
-        <form action="" method="post">
-            <label for="submit" style="color:red;font-size:xx-large">Etes vous sur de vouloir supprimer cet utilisateur</label>
-            <br>
-            <input type="submit" class="btn2" style="padding-left:10px;padding-right:10px" value="oui" name="submit">
-            <input type="text" name="name" hidden id="" value="<?php echo $info[0][1]; ?>">
-            <input type="text" name="lastname" hidden id="" value="<?php echo $info[0][2]; ?>">
-            <a href="index.php" style="padding-left:10px;padding-right:10px" class="btn2">non</a>
+    <div class="login-box">
+        <h2>Etes vous sur de vouloir supprimer cet utilisateur ?</h2>
+        <form autocomplete="off" id="my_form" method="post">
+            <input type="text" name="username" hidden id="" value="<?php echo $info[0][1]; ?>">
+            <a href="javascript:{}" onclick="document.getElementById('my_form').submit();">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Oui
+            <a/>
+
+            <a style="float: right;" href="javascript:{}" onclick="document.location.href = "allUsers.php"">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Non
+            <a/>
         </form>
-    </center>
+    </div>
 </body>
 
 </html>
