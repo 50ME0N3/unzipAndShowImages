@@ -1,16 +1,17 @@
 <?php
+const width = 273.6;
+const height = 182.4;
 session_start();
 if (isset($_GET["directory"])) {
     $pic = array();
-    $dividedBy = 20;
     foreach (scandir('..\..\exctractedFile\\' . $_GET["directory"]) as $item) {
         if ($item != "." && $item != "..") {
             if (exif_imagetype('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item) == IMAGETYPE_JPEG) {
                 $imageInfo = getimagesize('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item);
                 if (exif_read_data('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item)["Orientation"] == 1) {
-                    $pic[$item] = array($imageInfo[1] / $dividedBy, $imageInfo[0] / $dividedBy);
+                    $pic[$item] = array(height, width);
                 } elseif (exif_read_data('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item)["Orientation"] == 8) {
-                    $pic[$item] = array($imageInfo[0] / $dividedBy, $imageInfo[1] / $dividedBy);
+                    $pic[$item] = array(width, height);
                 }
             }
         }
@@ -29,8 +30,8 @@ function unzip()
             if ($file != "." && $file != "..") {
                 if (file_exists('..\..\zippedFile\\' . $file)) {
                     $stat = stat('..\..\zippedFile\\' . $file);
-                    //$filedate = date_create(date("Y-m-d", $stat['ctime']));
                     $files[$stat["ctime"]] = $file;
+
                 }
             }
         }
@@ -65,11 +66,11 @@ function echoImage($lastModified)
             $imageInfo = getimagesize('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item);
             //var_dump(exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"]);
             if (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 1) {
-                echo '<img height="' . $imageInfo[1] / $dividedBy . '" width="' . $imageInfo[0] / $dividedBy . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
+                echo '<img height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
             } elseif (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 6) {
-                echo '<img height="' . $imageInfo[0] / $dividedBy . '" width="' . $imageInfo[1] / $dividedBy . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
+                echo '<img height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
             } elseif (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 8) {
-                echo '<img height="' . $imageInfo[0] / $dividedBy . '" width="' . $imageInfo[1] / $dividedBy . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
+                echo '<img height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
             }
         }
     }
@@ -79,6 +80,6 @@ function echoDirectory()
 {
     foreach (scandir("..\..\\exctractedFile") as $value) {
         if ($value != "." && $value != "..")
-            echo '<button class="directory">' . $value . '</button>';
+            echo '<button class="directory">' . $value . '</button><br>';
     }
 }
