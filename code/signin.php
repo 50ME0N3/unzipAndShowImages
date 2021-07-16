@@ -18,7 +18,7 @@ if(isset($_POST["username"])){
 
 <body>
     <div class="login-box">
-        <h2>Sign in</h2>
+        <a href="index.php"><h2>Sign in</h2></a>
         <form autocomplete="off" id="my_form" method="post">
             <div class="user-box">
                 <input type="text" name="username" id="username" required="">

@@ -45,6 +45,7 @@ function login($username, $Password)
         $admin = false;
 	}
 	if (count($result) > 0) {
+	    global $admin;
 		$_SESSION["username"] = $username;
 		$_SESSION["pwd"] = $Password;
 		$_SESSION["admin"] = $admin;

@@ -60,16 +60,19 @@ function unzip()
 }
 function echoImage($lastModified)
 {
+    $i = 0;
     foreach (scandir('..\..\exctractedFile\\' . substr($lastModified, 0, -4)) as $item) {
         if ($item != "." && $item != "..") {
             //var_dump(exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"]);
-            if (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 1) {
-                echo '<img height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
-            } elseif (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 6) {
-                echo '<img height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
-            } elseif (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 8) {
-                echo '<img height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/>';
+            if($i % 3 == 0){
+                echo "<tr></tr>";
             }
+            if (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 1) {
+                echo '<td><center><img height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/><center></td>';
+            } elseif (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 8) {
+                echo '<td><center><img height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/></center></td>';
+            }
+            $i++;
         }
     }
 }

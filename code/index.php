@@ -31,16 +31,12 @@ $file = unzip();
                     success: function(response) {
                         console.log(response);
                         $("#test").empty();
-                        let i = 1;
+                        let i = 0;
                         $.each(Object.keys(response), function() {
                             if(i % 3 == 0) {
-                                $("table").append('</tr>')
                                 $("table").append('<tr>')
-                                $("table").append('<td><img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '"></td>')
                             }
-                            else{
-                                $("table").append('<td><img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '"></td>')
-                            }
+                            $("table").append('<td><center><img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '"></></td>')
                             i++;
                         })
                     }
@@ -53,6 +49,16 @@ $file = unzip();
 </head>
 
 <body>
+<header>
+    <?php
+        if($_SESSION["username"] != null){
+            echo "<a href='User.php'>Montre moi qui je suis</a>";
+        }
+        else{
+            echo "<a href='login.php'><button>se connecter</button></a><br><a href='signin.php'><button>s'inscrire</button></a>";
+        }
+    ?>
+</header>
     <aside>
         <?php
             echoDirectory();
@@ -60,7 +66,7 @@ $file = unzip();
     </aside>
     <table class="container" id="test">
         <?php
-        echoImage($file);
+            echoImage($file);
         ?>
     </table>
 </body>
