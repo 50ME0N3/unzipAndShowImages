@@ -1,8 +1,8 @@
 aside{
-    float: left;
+    float: right;
 }
-div{
-    width: 63%;
+table.container{
+    width: 845px;
     margin: auto;
     background: black;
 }

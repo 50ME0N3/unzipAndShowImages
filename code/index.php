@@ -30,10 +30,18 @@ $file = unzip();
                     },
                     success: function(response) {
                         console.log(response);
-                        $("div").empty();
-                        let i = -1;
+                        $("#test").empty();
+                        let i = 1;
                         $.each(Object.keys(response), function() {
-                            $("div").append('<img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '">')
+                            if(i % 3 == 0) {
+                                $("table").append('</tr>')
+                                $("table").append('<tr>')
+                                $("table").append('<td><img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '"></td>')
+                            }
+                            else{
+                                $("table").append('<td><img height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '"></td>')
+                            }
+                            i++;
                         })
                     }
                 })
@@ -50,11 +58,11 @@ $file = unzip();
             echoDirectory();
         ?>
     </aside>
-    <div class="container">
+    <table class="container" id="test">
         <?php
         echoImage($file);
         ?>
-    </div>
+    </table>
 </body>
 
 </html>
