@@ -1,6 +1,7 @@
 <?php
 const width = 273.6;
 const height = 182.4;
+ini_set('max_execution_time',-1);
 session_start();
 if (isset($_GET["directory"])) {
     $pic = array();
@@ -47,17 +48,23 @@ function unzip()
             }
         }
     }
-
-    if (scandir('..\..\exctractedFile\\' . substr($lastModified, 0, -4)) == null) {
-        $zip = new ZipArchive;
-        $res = $zip->open('..\..\zippedFile\\' . $lastModified);
-        if ($res === TRUE) {
-            $zip->extractTo('..\..\exctractedFile');
-            $zip->close();
+    foreach (scandir("..\..\zippedFile") as $value){
+        if (scandir('..\..\exctractedFile\\' . $value) == null) {
+            $zip = new ZipArchive;
+            $res = $zip->open('..\..\zippedFile\\' . $value);
+            if ($res === TRUE) {
+                $zip->extractTo('..\..\exctractedFile');
+                $zip->close();
+            }
         }
     }
     return $lastModified;
 }
+
+function TestExif(){
+    var_dump(scandir('..\..\exctractedFile\20210712'));
+}
+
 function echoImage($lastModified)
 {
     $i = 0;

@@ -2,7 +2,6 @@
 <html lang="en">
 <?php
 include "func.php";
-$file = unzip();
 // var_dump($_GET);
 ?>
 
@@ -26,6 +25,7 @@ $file = unzip();
                     },
                     dataType: 'json',
                     error: function(test) {
+                        console.log("error");
                         console.log(test);
                     },
                     success: function(response) {
@@ -64,11 +64,15 @@ $file = unzip();
             echoDirectory();
         ?>
     </aside>
+    <?php
+        //TestExif();
+    ?>
     <table class="container" id="test">
         <?php
-            echoImage($file);
+            //echoImage($file);
         ?>
     </table>
+    <button onclick="document.location.href = 'unzip.php'">Reload files</button>
 </body>
 
 </html>
