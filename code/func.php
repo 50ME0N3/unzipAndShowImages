@@ -62,22 +62,59 @@ function unzip()
 }
 
 function TestExif(){
-    var_dump(scandir('..\..\exctractedFile\20210712'));
+    foreach (scandir('..\..\exctractedFile\20211011') as $item){
+        if ($item != "." && $item != "..") {
+            echo $item;
+            echo "<br>";
+            if(exif_read_data('..\..\exctractedFile\20211011\\'.$item)["Orientation"] == null) {
+                var_dump(exif_read_data('..\..\exctractedFile\20211011\\' . $item));
+            }
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+
+        }
+    }
 }
 
-function echoImage($lastModified)
+function echoImage()
 {
+    $lastModified = "test";
+    $files = array();
+    if ($handle = opendir('..\..\exctractedFile')) {
+        while (false !== ($file = readdir($handle))) {
+            if ($file != "." && $file != "..") {
+                if (file_exists('..\..\exctractedFile\\' . $file)) {
+                    $stat = stat('..\..\exctractedFile\\' . $file);
+                    $files[$stat["ctime"]] = $file;
+
+                }
+            }
+        }
+        closedir($handle);
+        ksort($files);
+        $reallyLastModified = end($files);
+        foreach ($files as $file) {
+            $stat = stat('..\..\exctractedFile\\' . $file);
+            global $lastModified;
+            $lastModified = date('F d Y, H:i:s', $stat["ctime"]);
+            if ($file == $reallyLastModified) {
+                $lastModified = $file;
+            }
+        }
+    }
     $i = 0;
-    foreach (scandir('..\..\exctractedFile\\' . substr($lastModified, 0, -4)) as $item) {
+    foreach (scandir('..\..\exctractedFile\\' . $lastModified) as $item) {
         if ($item != "." && $item != "..") {
             //var_dump(exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"]);
             if($i % 3 == 0){
                 echo "<tr></tr>";
             }
-            if (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 1) {
-                echo '<td><center><img height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/><center></td>';
-            } elseif (exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"] == 8) {
-                echo '<td><center><img height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item . '" alt="' . $item . '"/></center></td>';
+            if (exif_read_data('..\..\exctractedFile\\' . $lastModified. '\\' . $item)["Orientation"] == 1) {
+                echo '<td><center><img height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/><center></td>';
+            } elseif (exif_read_data('..\..\exctractedFile\\' . $lastModified. '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . $lastModified. '\\' . $item)["Orientation"] == 8) {
+                echo '<td><center><img height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/></center></td>';
             }
             $i++;
         }

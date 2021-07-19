@@ -62,6 +62,11 @@ include "func.php";
     <aside>
         <?php
             echoDirectory();
+            if($_SESSION["admin"]){
+        ?>
+        <button onclick="document.location.href = 'unzip.php'">Reload files</button>
+        <?php
+            }
         ?>
     </aside>
     <?php
@@ -69,10 +74,9 @@ include "func.php";
     ?>
     <table class="container" id="test">
         <?php
-            //echoImage($file);
+            echoImage();
         ?>
     </table>
-    <button onclick="document.location.href = 'unzip.php'">Reload files</button>
 </body>
 
 </html>
