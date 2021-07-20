@@ -33,6 +33,9 @@ function createNewUser(string $username, string $pwd)
  */
 function login(string $username, string $Password)
 {
+    global $admin;
+    $admin = false;
+    $result = "";
 	$conn = myPdo();
 	try {
 	    global $query;
@@ -46,22 +49,26 @@ function login(string $username, string $Password)
 		var_dump($query);
 		var_dump($e->getMessage());
 	}
-	$admin = false;
-	if ($result["Roles_idRoles"] == 1) {
-		global $admin;
-        $admin = true;
-	} else {
-		global $admin;
-        $admin = false;
-	}
-	if (count($result) > 0) {
-	    global $admin;
-		$_SESSION["username"] = $username;
-		$_SESSION["pwd"] = $Password;
-		$_SESSION["admin"] = $admin;
-		header("location: index.php", true);
-	} else
-		$erreur = "Mauvais login ou mot de passe!";
+	if($result != false) {
+        if ($result["Roles_idRoles"] == 1) {
+            global $admin;
+            $admin = true;
+        } else {
+            global $admin;
+            $admin = false;
+        }
+        if (count($result) > 0) {
+            global $admin;
+            $_SESSION["username"] = $username;
+            $_SESSION["pwd"] = $Password;
+            $_SESSION["admin"] = $admin;
+            header("location: index.php", true);
+        } else
+            $erreur = "Mauvais login ou mot de passe!";
+    }
+	else{
+	    echo "erreur";
+    }
 }
 
 /**
