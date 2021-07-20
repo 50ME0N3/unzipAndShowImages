@@ -1,5 +1,9 @@
 <?php
 include 'dbConnectionInfo.php';
+/**
+ * se connect a la base de donnée
+ * @return PDO|null retourne la connection a la base de donnée
+ */
 function myPdo() {
 	static $db = NULL;
 	try {

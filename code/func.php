@@ -1,30 +1,49 @@
 <?php
+//constante pour la taille des images
 const width = 273.6;
 const height = 182.4;
+//modifie le temps d'execution maximale a infinie parce que la fonction unzip met beaucoup de temps a s'effectuer
 ini_set('max_execution_time',-1);
 session_start();
 if (isset($_GET["directory"])) {
+    echo echoSpecifiedDirectory($_GET["directory"]);
+}
+/**
+ * envoie les images demandée par un requète en get sur le fichier
+ *
+ * @param string $directory nom du dossier dans lequel son stockée les images que vous voullez afficher
+ *
+ * @return string un tableau json contenant le nom des images et leurs taille
+ */
+function echoSpecifiedDirectory($directory): string
+{
     $pic = array();
-    foreach (scandir('..\..\exctractedFile\\' . $_GET["directory"]) as $item) {
+    foreach (scandir('..\..\exctractedFile\\' . $directory) as $item) {
         if ($item != "." && $item != "..") {
-            if (exif_imagetype('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item) == IMAGETYPE_JPEG) {
-                $imageInfo = getimagesize('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item);
-                if (exif_read_data('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item)["Orientation"] == 1) {
+            if (exif_imagetype('..\..\exctractedFile\\' . $directory . '\\' . $item) == IMAGETYPE_JPEG) {
+                $imageInfo = getimagesize('..\..\exctractedFile\\' . $directory . '\\' . $item);
+                if (exif_read_data('..\..\exctractedFile\\' . $directory . '\\' . $item)["Orientation"] == 1) {
                     $pic[$item] = array(height, width);
-                } elseif (exif_read_data('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . $_GET["directory"] . '\\' . $item)["Orientation"] == 8) {
+                } elseif (exif_read_data('..\..\exctractedFile\\' . $directory . '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . $directory . '\\' . $item)["Orientation"] == 8) {
                     $pic[$item] = array(width, height);
                 }
             }
         }
     }
-    echo json_encode($pic);
+    return json_encode($pic);
 }
 ini_set('display_errors', 0);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 $hour = date('H');
 $dividedBy = 20;
-function unzip()
+/**
+ * extrait tout les fichier zip du dossier dans un autre dossier
+ *
+ * @return string le nom du dernier dossier modifier
+ */
+function unzip(): string
 {
+    $lastModified = "";
     $files = array();
     if ($handle = opendir('..\..\zippedFile')) {
         while (false !== ($file = readdir($handle))) {
@@ -60,14 +79,16 @@ function unzip()
     }
     return $lastModified;
 }
-
+/**
+ * Fonction de test pour savoir si les photos possède bien les données exif nécessaire
+ */
 function TestExif(){
-    foreach (scandir('..\..\exctractedFile\20211011') as $item){
+    foreach (scandir('..\..\exctractedFile\20210712') as $item){
         if ($item != "." && $item != "..") {
             echo $item;
             echo "<br>";
-            if(exif_read_data('..\..\exctractedFile\20211011\\'.$item)["Orientation"] == null) {
-                var_dump(exif_read_data('..\..\exctractedFile\20211011\\' . $item));
+            if(exif_read_data('..\..\exctractedFile\20210712\\'.$item)["Orientation"] == null) {
+                var_dump(exif_read_data('..\..\exctractedFile\20210712\\' . $item));
             }
             echo "<br>";
             echo "<br>";
@@ -77,7 +98,9 @@ function TestExif(){
         }
     }
 }
-
+/**
+ * Affiche les images présente dans le dernier dossier modifier
+ */
 function echoImage()
 {
     $lastModified = "test";
@@ -121,6 +144,9 @@ function echoImage()
     }
 }
 
+/**
+ * affiche un boutton pour chaque dossier
+ */
 function echoDirectory()
 {
     foreach (scandir("..\..\\exctractedFile") as $value) {

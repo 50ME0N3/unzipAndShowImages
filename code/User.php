@@ -1,8 +1,7 @@
 <?php
 session_start();
+//si l'utilisateur est connecter on affiche sinon on redirige sur l'index
 if ($_SESSION["username"] != null) {
-
-
 ?>
 <!doctype html>
 <html lang="en">

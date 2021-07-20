@@ -1,4 +1,7 @@
 <?php
 include "func.php";
-unzip();
+//vérifie si l'utilisateur a les permission pour éffectuer cette action avant de la faire
+if($_SESSION["admin"]) {
+    unzip();
+}
 header("location: index.php");

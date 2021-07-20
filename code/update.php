@@ -1,4 +1,5 @@
 <?php
+//TODO: faire l'update de son profil personnel
 include "dao.php";
 if (!$_SESSION["admin"]) {
     header("Location: index.php");

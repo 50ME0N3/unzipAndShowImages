@@ -1,6 +1,11 @@
 <?php
 require_once 'dbUtil.php';
 session_start();
+/**
+ * créé un nouvelle utilisateur dans la base de donnée
+ * @param $username string le nom de l'utilisateur
+ * @param $pwd string son mot de passe haché en md5
+ */
 function createNewUser($username, $pwd)
 {
     $conn = myPdo();
@@ -20,6 +25,12 @@ function createNewUser($username, $pwd)
         echo "Le nom d'utilisateur est déja utilisé";
     }
 }
+
+/**
+ * log la personne selon son nom d'utilisateur et son mot de passe
+ * @param $username string nom d'utilisateur de la personne qui veut se connecter
+ * @param $Password string son mot de passe
+ */
 function login($username, $Password)
 {
 	$conn = myPdo();
@@ -53,6 +64,10 @@ function login($username, $Password)
 	} else
 		$erreur = "Mauvais login ou mot de passe!";
 }
+
+/**
+ * affiche tout les utilisateur présent dans la base
+ */
 function echoAllUsers()
 {
 	$query = "SELECT *, NomRole FROM users as u JOIN roles as r on u.Roles_idRoles = r.idRoles";
@@ -85,6 +100,12 @@ function echoAllUsers()
 	echo "</table>
 	</center>";
 }
+
+/**
+ * retourne les infos d'un utilisateur présent dans la base
+ * @param $username string le nom d'utilisateur dont on veut les infos
+ * @return array retourne les infos de l'utilisateur
+ */
 function getInfo($username)
 {
 	$conn = myPdo();
@@ -94,6 +115,12 @@ function getInfo($username)
 	return $sel->fetchAll();
 }
 
+/**
+ * modifie un utilisateur dans la base
+ * @param $username string le nouveau nom d'utilisateur
+ * @param $pwd string le nouveau mot de passe
+ * @param $id int l'id de l'utilisateur
+ */
 function update($username, $pwd, $id)
 {
 	$conn = myPdo();
@@ -105,6 +132,11 @@ function update($username, $pwd, $id)
 	echo $username . "<br>" . $pwd . "<br>" . $id;
 	header("location: index.php");
 }
+
+/**
+ * supprime un utilisateur de la base
+ * @param $username string le nouveau nom d'utilisateur
+ */
 function delete($username)
 {
 	$conn = myPdo();

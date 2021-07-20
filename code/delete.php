@@ -1,8 +1,10 @@
 <?php
 include "dao.php";
+//si l'utilisateur n'a pas les permission pour être sur cette page alors on le renvoie sur l'index
 if (!$_SESSION["admin"]) {
     header("Location: index.php");
 }
+
 $username = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
 $info = getInfo($username);
 if (isset($_POST["username"])) {

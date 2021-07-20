@@ -1,5 +1,6 @@
 <?php
 include "dao.php";
+//si l'utilisateur a envoyer le formulaire alors on récupère les info et on les envoies a la fonction login
 if(isset($_POST["username"])){
    login(filter_input(INPUT_POST,"username",FILTER_SANITIZE_STRING),md5(filter_input(INPUT_POST,"password",FILTER_SANITIZE_STRING)));
 }
