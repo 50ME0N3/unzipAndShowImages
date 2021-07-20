@@ -1,0 +1,2 @@
+TODO: modification de son profile
+TODO: upload de fichier zip si on a les perms d'admin
