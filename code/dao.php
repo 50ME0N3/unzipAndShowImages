@@ -6,7 +6,7 @@ session_start();
  * @param $username string le nom de l'utilisateur
  * @param $pwd string son mot de passe haché en md5
  */
-function createNewUser($username, $pwd)
+function createNewUser(string $username, string $pwd)
 {
     $conn = myPdo();
     $query = $conn->prepare('SELECT `username`, Roles_idRoles from users where `Username`=:username limit 1');
@@ -31,7 +31,7 @@ function createNewUser($username, $pwd)
  * @param $username string nom d'utilisateur de la personne qui veut se connecter
  * @param $Password string son mot de passe
  */
-function login($username, $Password)
+function login(string $username, string $Password)
 {
 	$conn = myPdo();
 	try {
@@ -46,7 +46,6 @@ function login($username, $Password)
 		var_dump($query);
 		var_dump($e->getMessage());
 	}
-	var_dump($result);
 	$admin = false;
 	if ($result["Roles_idRoles"] == 1) {
 		global $admin;
@@ -106,7 +105,7 @@ function echoAllUsers()
  * @param $username string le nom d'utilisateur dont on veut les infos
  * @return array retourne les infos de l'utilisateur
  */
-function getInfo($username)
+function getInfo(string $username)
 {
 	$conn = myPdo();
 	$sel = $conn->prepare("SELECT idUsers, username, NomRole from users INNER JOIN roles on users.Roles_idRoles = roles.idRoles where username=:username limit 1");
@@ -121,7 +120,7 @@ function getInfo($username)
  * @param $pwd string le nouveau mot de passe
  * @param $id int l'id de l'utilisateur
  */
-function update($username, $pwd, $id)
+function update(string $username, string $pwd,int $id)
 {
 	$conn = myPdo();
 	$query = $conn->prepare('UPDATE users SET `Username`=:username, `Password`=:pwd WHERE `idUsers` = :id');
@@ -137,7 +136,7 @@ function update($username, $pwd, $id)
  * supprime un utilisateur de la base
  * @param $username string le nouveau nom d'utilisateur
  */
-function delete($username)
+function delete(string $username)
 {
 	$conn = myPdo();
 	$query = $conn->prepare('DELETE FROM users WHERE `username`=:username');
