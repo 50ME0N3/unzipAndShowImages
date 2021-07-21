@@ -1,18 +1,18 @@
-aside{
+aside {
     float: left;
 }
-table.container{
+
+table.container {
     width: 845px;
     margin: auto;
     background: black;
 }
-.margin{
+
+.margin {
     margin-right: 10%;
     margin-left: 10%;
 }
-body{
-    background: linear-gradient(#141e30, #243b55);
-}
-img{
-    border: solid white 2px;
+
+body {
+    /*background: linear-gradient(#141e30, #243b55);*/
 }

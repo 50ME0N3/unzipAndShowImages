@@ -3,7 +3,7 @@
 const width = 273.6;
 const height = 182.4;
 //modifie le temps d'execution maximale a infinie parce que la fonction unzip met beaucoup de temps a s'effectuer
-ini_set('max_execution_time',-1);
+ini_set('max_execution_time', -1);
 session_start();
 if (isset($_GET["directory"])) {
     echo echoSpecifiedDirectory($_GET["directory"]);
@@ -15,7 +15,7 @@ if (isset($_GET["directory"])) {
  *
  * @return string un tableau json contenant le nom des images et leurs taille
  */
-function echoSpecifiedDirectory($directory): string
+function echoSpecifiedDirectory(string $directory): string
 {
     $pic = array();
     foreach (scandir('..\..\exctractedFile\\' . $directory) as $item) {
@@ -32,6 +32,7 @@ function echoSpecifiedDirectory($directory): string
     }
     return json_encode($pic);
 }
+
 ini_set('display_errors', 0);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 $hour = date('H');
@@ -51,7 +52,6 @@ function unzip(): string
                 if (file_exists('..\..\zippedFile\\' . $file)) {
                     $stat = stat('..\..\zippedFile\\' . $file);
                     $files[$stat["ctime"]] = $file;
-
                 }
             }
         }
@@ -67,10 +67,13 @@ function unzip(): string
             }
         }
     }
-    foreach (scandir("..\..\zippedFile") as $value){
+    foreach (scandir("..\..\zippedFile") as $value) {
+        echo $value;
         if (scandir('..\..\exctractedFile\\' . $value) == null) {
             $zip = new ZipArchive;
             $res = $zip->open('..\..\zippedFile\\' . $value);
+            echo '..\..\zippedFile\\' . $value;
+            echo "<br>";
             if ($res === TRUE) {
                 $zip->extractTo('..\..\exctractedFile');
                 $zip->close();
@@ -79,16 +82,18 @@ function unzip(): string
     }
     return $lastModified;
 }
+
 /**
  * Fonction de test pour savoir si les photos possède bien les données exif nécessaire
  */
-function TestExif(){
-    foreach (scandir('..\..\exctractedFile\20210712') as $item){
+function TestExif(string $directory)
+{
+    foreach (scandir('..\..\exctractedFile\\' . $directory) as $item) {
         if ($item != "." && $item != "..") {
             echo $item;
             echo "<br>";
-            if(exif_read_data('..\..\exctractedFile\20210712\\'.$item)["Orientation"] == null) {
-                var_dump(exif_read_data('..\..\exctractedFile\20210712\\' . $item));
+            if (exif_read_data('..\..\exctractedFile\\' . $directory . '\\' . $item)["Orientation"] == null) {
+                var_dump(exif_read_data('..\..\exctractedFile\\' . $directory . '\\' . $item));
             }
             echo "<br>";
             echo "<br>";
@@ -98,6 +103,7 @@ function TestExif(){
         }
     }
 }
+
 /**
  * Affiche les images présente dans le dernier dossier modifier
  */
@@ -131,13 +137,13 @@ function echoImage()
     foreach (scandir('..\..\exctractedFile\\' . $lastModified) as $item) {
         if ($item != "." && $item != "..") {
             //var_dump(exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"]);
-            if($i % 3 == 0){
+            if ($i % 3 == 0) {
                 echo "<tr></tr>";
             }
-            if (exif_read_data('..\..\exctractedFile\\' . $lastModified. '\\' . $item)["Orientation"] == 1) {
-                echo '<td><center><img height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/><center></td>';
-            } elseif (exif_read_data('..\..\exctractedFile\\' . $lastModified. '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . $lastModified. '\\' . $item)["Orientation"] == 8) {
-                echo '<td><center><img height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/></center></td>';
+            if (exif_read_data('..\..\exctractedFile\\' . $lastModified . '\\' . $item)["Orientation"] == 1) {
+                echo '<td><center><img class="rounded img-thumbnail" height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/><center></td>';
+            } elseif (exif_read_data('..\..\exctractedFile\\' . $lastModified . '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . $lastModified . '\\' . $item)["Orientation"] == 8) {
+                echo '<td><center><img class="rounded img-thumbnail" height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/></center></td>';
             }
             $i++;
         }
@@ -151,6 +157,6 @@ function echoDirectory()
 {
     foreach (scandir("..\..\\exctractedFile") as $value) {
         if ($value != "." && $value != "..")
-            echo '<button class="directory">' . $value . '</button><br>';
+            echo '<button class="btn btn-outline-danger directory">' . $value . '</button><br>';
     }
 }
