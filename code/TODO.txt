@@ -1,2 +1,4 @@
+TODO: Résoudre dossier fantome (20211011)
 TODO: modification de son profile
 TODO: upload de fichier zip si on a les perms d'admin
+TODO: optimisation de la fonction unzip (trés compliqué pcq j'y comprend pas grand chose)

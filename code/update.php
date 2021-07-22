@@ -9,7 +9,7 @@ if ($_POST) {
     $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
     $pwd = md5(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING));
-    update($username,$pwd, $id);
+    update($username, $pwd, $id);
 }
 ?>
 <!DOCTYPE html>
@@ -42,7 +42,7 @@ if ($_POST) {
             <span></span>
             <span></span>
             Submit
-        <a/>
+            <a/>
     </form>
 </div>
 </body>

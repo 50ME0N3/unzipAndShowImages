@@ -39,34 +39,9 @@ $hour = date('H');
 $dividedBy = 20;
 /**
  * extrait tout les fichier zip du dossier dans un autre dossier
- *
- * @return string le nom du dernier dossier modifier
  */
 function unzip(): string
 {
-    $lastModified = "";
-    $files = array();
-    if ($handle = opendir('..\..\zippedFile')) {
-        while (false !== ($file = readdir($handle))) {
-            if ($file != "." && $file != "..") {
-                if (file_exists('..\..\zippedFile\\' . $file)) {
-                    $stat = stat('..\..\zippedFile\\' . $file);
-                    $files[$stat["ctime"]] = $file;
-                }
-            }
-        }
-        closedir($handle);
-
-        ksort($files);
-        $reallyLastModified = end($files);
-        foreach ($files as $file) {
-            $stat = stat('..\..\zippedFile\\' . $file);
-            $lastModified = date('F d Y, H:i:s', $stat["ctime"]);
-            if ($file == $reallyLastModified) {
-                $lastModified = $file;
-            }
-        }
-    }
     foreach (scandir("..\..\zippedFile") as $value) {
         echo $value;
         if (scandir('..\..\exctractedFile\\' . $value) == null) {
@@ -80,7 +55,6 @@ function unzip(): string
             }
         }
     }
-    return $lastModified;
 }
 
 /**
