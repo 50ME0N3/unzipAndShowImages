@@ -3,6 +3,11 @@
 <?php
 include "func.php";
 // var_dump($_GET);
+
+if(isset($_POST)){
+    fileUpload($_FILES);
+}
+
 ?>
 
 <head>
@@ -78,6 +83,8 @@ include "func.php";
     if ($_SESSION["admin"]) {
         ?>
         <button class="btn btn-outline-danger" onclick="document.location.href = 'unzip.php'">Reload files</button>
+        <br>
+        <button class="btn btn-outline-danger" onclick="document.location.href = 'allUsers.php'">Voir tous les utilisateurs</button>
         <?php
     }
     ?>
@@ -92,6 +99,16 @@ include "func.php";
     echoImage();
     ?>
 </table>
+<?php
+if ($_SESSION["admin"]) {
+?>
+    <form action="" method="post" id="my_form" enctype="multipart/form-data">
+        <input type="file" class="form-control" accept="application/zip" name="upload" id="upload">
+        <button href="javascript:{}" onclick="document.getElementById('my_form').submit();" class="btn btn-danger" style="width: max-content" >Envoyer le fichier</button>
+    </form>
+<?php
+}
+?>
 </body>
 
 </html>

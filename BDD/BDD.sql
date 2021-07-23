@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `SitePhoto`.`Users` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO `roles`(`NomRole`) VALUES ('admin'), ('vistiteur');
+INSERT INTO `roles`(`NomRole`) VALUES ('admin'), ('visiteur');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

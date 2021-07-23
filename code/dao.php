@@ -9,11 +9,10 @@ session_start();
 function createNewUser(string $username, string $pwd)
 {
     $conn = myPdo();
-    $query = $conn->prepare('SELECT `username`, Roles_idRoles from users where `Username`=:username limit 1');
+    $query = $conn->prepare('SELECT `Username` from users where `Username`=:username limit 1');
     $query->bindParam(':username', $username, PDO::PARAM_STR);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    var_dump($result);
     if($result == null){
         $query = $conn->prepare('INSERT INTO users SELECT null, :username, :pwd, idRoles FROM roles WHERE NomRole = "visiteur"');
         $query->bindParam(':username', $username, PDO::PARAM_STR);
@@ -68,6 +67,7 @@ function login(string $username, string $Password)
     }
 	else{
 	    echo "erreur";
+	    var_dump($result);
     }
 }
 
@@ -79,7 +79,7 @@ function echoAllUsers()
 	$query = "SELECT *, NomRole FROM users as u JOIN roles as r on u.Roles_idRoles = r.idRoles";
 	$result = myPdo()->query($query)->fetchAll();
 	echo '<center>
-			<table id="users">
+			<table id="users" class="table table-dark table-striped">
 			<tr>
 			<td>Username</td>
 			<td>Role</td>';

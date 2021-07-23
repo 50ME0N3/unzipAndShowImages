@@ -14,5 +14,6 @@ table.container {
 }
 
 body {
-    /*background: linear-gradient(#141e30, #243b55);*/
+    background: linear-gradient(#141e30, #243b55);
+    height: available;
 }

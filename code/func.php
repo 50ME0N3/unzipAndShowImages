@@ -40,15 +40,12 @@ $dividedBy = 20;
 /**
  * extrait tout les fichier zip du dossier dans un autre dossier
  */
-function unzip(): string
+function unzip()
 {
     foreach (scandir("..\..\zippedFile") as $value) {
-        echo $value;
         if (scandir('..\..\exctractedFile\\' . $value) == null) {
             $zip = new ZipArchive;
             $res = $zip->open('..\..\zippedFile\\' . $value);
-            echo '..\..\zippedFile\\' . $value;
-            echo "<br>";
             if ($res === TRUE) {
                 $zip->extractTo('..\..\exctractedFile');
                 $zip->close();
@@ -132,5 +129,28 @@ function echoDirectory()
     foreach (scandir("..\..\\exctractedFile") as $value) {
         if ($value != "." && $value != "..")
             echo '<button class="btn btn-outline-danger directory">' . $value . '</button><br>';
+    }
+}
+
+function fileUpload(array $FILES){
+    $target_dir = "..\..\zippedFile\\";
+    $target_file = $target_dir . basename($FILES["upload"]["name"]);
+    $uploadOk = 1;
+
+// Check if file already exists
+    if (file_exists($target_file)) {
+        $uploadOk = 0;
+    }
+
+// Check file size
+    if ($FILES["fileToUpload"]["size"] > 500000) {
+        $uploadOk = 0;
+    }
+
+// Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+// if everything is ok, try to upload file
+    } else {
+        move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file);
     }
 }

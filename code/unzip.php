@@ -4,4 +4,7 @@ include "func.php";
 if ($_SESSION["admin"]) {
     unzip();
 }
+else {
+    echo "test";
+}
 header("location: index.php");
