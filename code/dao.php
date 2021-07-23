@@ -13,14 +13,13 @@ function createNewUser(string $username, string $pwd)
     $query->bindParam(':username', $username, PDO::PARAM_STR);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    if($result == null){
+    if ($result == null) {
         $query = $conn->prepare('INSERT INTO users SELECT null, :username, :pwd, idRoles FROM roles WHERE NomRole = "visiteur"');
         $query->bindParam(':username', $username, PDO::PARAM_STR);
         $query->bindParam(':pwd', $pwd, PDO::PARAM_STR);
         $query->execute();
         header("location: login.php");
-    }
-    else{
+    } else {
         echo "Le nom d'utilisateur est déja utilisé";
     }
 }
@@ -35,20 +34,20 @@ function login(string $username, string $Password)
     global $admin;
     $admin = false;
     $result = "";
-	$conn = myPdo();
-	try {
-	    global $query;
-		$query = $conn->prepare('SELECT `username`, Roles_idRoles from users where `Username`=:username and `Password`=:pwd limit 1');
-		$query->bindParam(':username', $username, PDO::PARAM_STR);
-		$query->bindParam(':pwd', $Password, PDO::PARAM_STR);
-		$query->execute();
-		$result = $query->fetch(PDO::FETCH_ASSOC);
-	} catch (PDOException $e) {
-		echo "ERREUR !";
-		var_dump($query);
-		var_dump($e->getMessage());
-	}
-	if($result != false) {
+    $conn = myPdo();
+    try {
+        global $query;
+        $query = $conn->prepare('SELECT `username`, Roles_idRoles from users where `Username`=:username and `Password`=:pwd limit 1');
+        $query->bindParam(':username', $username, PDO::PARAM_STR);
+        $query->bindParam(':pwd', $Password, PDO::PARAM_STR);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "ERREUR !";
+        var_dump($query);
+        var_dump($e->getMessage());
+    }
+    if ($result != false) {
         if ($result["Roles_idRoles"] == 1) {
             global $admin;
             $admin = true;
@@ -64,10 +63,9 @@ function login(string $username, string $Password)
             header("location: index.php", true);
         } else
             $erreur = "Mauvais login ou mot de passe!";
-    }
-	else{
-	    echo "erreur";
-	    var_dump($result);
+    } else {
+        echo "erreur";
+        var_dump($result);
     }
 }
 
@@ -76,34 +74,34 @@ function login(string $username, string $Password)
  */
 function echoAllUsers()
 {
-	$query = "SELECT *, NomRole FROM users as u JOIN roles as r on u.Roles_idRoles = r.idRoles";
-	$result = myPdo()->query($query)->fetchAll();
-	echo '<center>
+    $query = "SELECT *, NomRole FROM users as u JOIN roles as r on u.Roles_idRoles = r.idRoles";
+    $result = myPdo()->query($query)->fetchAll();
+    echo '<center>
 			<table id="users" class="table table-dark table-striped">
 			<tr>
 			<td>Username</td>
 			<td>Role</td>';
-	if (count($_SESSION) != 0) {
-		if ($_SESSION["admin"]) {
-			echo "<td>modification</a></td>";
-			echo "<td>suppression</a></td>";
-		}
-	}
-	echo '</tr>';
-	foreach ($result as $value) {
-		echo "<tr>
+    if (count($_SESSION) != 0) {
+        if ($_SESSION["admin"]) {
+            echo "<td>modification</a></td>";
+            echo "<td>suppression</a></td>";
+        }
+    }
+    echo '</tr>';
+    foreach ($result as $value) {
+        echo "<tr>
 			<td>" . $value[1] . "</td>
 			<td>" . $value[5] . "</td>
 			";
-		if (count($_SESSION) != 0) {
-			if ($_SESSION["admin"]) {
-				echo "<td><a class=\"btn2\" href=\"update.php?name=" . $value[1] . "\">modifier</a></td>";
-				echo "<td><a class=\"btn2\" href=\"delete.php?name=" . $value[1] . "\">supprimer</a></td>";
-			}
-		}
-		echo "</tr>";
-	}
-	echo "</table>
+        if (count($_SESSION) != 0) {
+            if ($_SESSION["admin"]) {
+                echo "<td><a class=\"btn2\" href=\"update.php?name=" . $value[1] . "\">modifier</a></td>";
+                echo "<td><a class=\"btn2\" href=\"delete.php?name=" . $value[1] . "\">supprimer</a></td>";
+            }
+        }
+        echo "</tr>";
+    }
+    echo "</table>
 	</center>";
 }
 
@@ -114,11 +112,11 @@ function echoAllUsers()
  */
 function getInfo(string $username)
 {
-	$conn = myPdo();
-	$sel = $conn->prepare("SELECT idUsers, username, NomRole from users INNER JOIN roles on users.Roles_idRoles = roles.idRoles where username=:username limit 1");
-	$sel->bindParam(':username',$username,PDO::PARAM_STR);
-	$sel->execute();
-	return $sel->fetchAll();
+    $conn = myPdo();
+    $sel = $conn->prepare("SELECT idUsers, username, NomRole from users INNER JOIN roles on users.Roles_idRoles = roles.idRoles where username=:username limit 1");
+    $sel->bindParam(':username', $username, PDO::PARAM_STR);
+    $sel->execute();
+    return $sel->fetchAll();
 }
 
 /**
@@ -127,16 +125,15 @@ function getInfo(string $username)
  * @param $pwd string le nouveau mot de passe
  * @param $id int l'id de l'utilisateur
  */
-function update(string $username, string $pwd,int $id)
+function update(string $username, string $pwd, int $id)
 {
-	$conn = myPdo();
-	$query = $conn->prepare('UPDATE users SET `Username`=:username, `Password`=:pwd WHERE `idUsers` = :id');
-	$query->bindParam(':username', $username, PDO::PARAM_STR);
-	$query->bindParam(':pwd', $pwd, PDO::PARAM_STR);
-	$query->bindParam(':id', $id, PDO::PARAM_INT);
-	$query->execute();
-	echo $username . "<br>" . $pwd . "<br>" . $id;
-	header("location: index.php");
+    $conn = myPdo();
+    $query = $conn->prepare('UPDATE users SET `Username`=:username, `Password`=:pwd WHERE `idUsers` = :id');
+    $query->bindParam(':username', $username, PDO::PARAM_STR);
+    $query->bindParam(':pwd', $pwd, PDO::PARAM_STR);
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    echo $username . "<br>" . $pwd . "<br>" . $id;
 }
 
 /**
@@ -145,9 +142,9 @@ function update(string $username, string $pwd,int $id)
  */
 function delete(string $username)
 {
-	$conn = myPdo();
-	$query = $conn->prepare('DELETE FROM users WHERE `username`=:username');
-	$query->bindParam(':username', $username, PDO::PARAM_STR);
-	$query->execute();
-	header("location: index.php");
+    $conn = myPdo();
+    $query = $conn->prepare('DELETE FROM users WHERE `username`=:username');
+    $query->bindParam(':username', $username, PDO::PARAM_STR);
+    $query->execute();
+    header("location: index.php");
 }

@@ -5,11 +5,13 @@ if (!$_SESSION["admin"]) {
 }
 $_username = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
 $info = getInfo($_username);
+$_SESSION["id"] = $info[0][0];
 if ($_POST) {
-    $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
     $pwd = md5(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING));
-    update($username, $pwd, $id);
+    update($username, $pwd, $_SESSION["id"]);
+    $_SESSION["id"] = null;
+    header("location: index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -35,7 +37,6 @@ if ($_POST) {
             <input type="password" name="password" id="password" required>
             <label for="password">Password</label>
         </div>
-        <input type="number" name="id" hidden value="<?php echo $info[0][0] ?>">
         <a href="javascript:{}" onclick="document.getElementById('my_form').submit();">
             <span></span>
             <span></span>
