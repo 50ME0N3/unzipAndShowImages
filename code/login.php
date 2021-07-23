@@ -34,7 +34,6 @@ if (isset($_POST["username"])) {
             <span></span>
             <span></span>
             Submit
-            <a/>
     </form>
 </div>
 </body>

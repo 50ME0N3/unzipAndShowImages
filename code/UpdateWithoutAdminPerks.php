@@ -1,7 +1,7 @@
 <?php
 include "dao.php";
-if (!$_SESSION["admin"]) {
-    header("Location: index.php");
+if ($_SESSION["username"] == null) {
+    header("location: index.php");
 }
 $_username = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
 $info = getInfo($_username);
@@ -11,6 +11,8 @@ if ($_POST) {
     $pwd = md5(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING));
     update($username, $pwd, $_SESSION["id"]);
     $_SESSION["id"] = null;
+    $_SESSION["username"] = $username;
+    $_SESSION["pwd"] = $pwd;
     header("location: index.php");
 }
 ?>

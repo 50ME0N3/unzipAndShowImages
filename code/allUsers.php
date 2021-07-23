@@ -15,10 +15,9 @@ include "dao.php";
 <body>
 <?php
 //affiche tout les utilisateur si l'utilisateur en a les permissions
-if($_SESSION["admin"] == true) {
+if ($_SESSION["admin"] == true) {
     echoAllUsers();
-}
-else{
+} else {
     header("location: index.php");
 }
 ?>

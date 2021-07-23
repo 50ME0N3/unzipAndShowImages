@@ -24,27 +24,27 @@ if (isset($_POST["username"])) {
 </head>
 
 <body>
-    <div class="login-box">
-        <h2>Etes vous sur de vouloir supprimer cet utilisateur ?</h2>
-        <form autocomplete="off" id="my_form" method="post">
-            <input type="text" name="username" hidden id="" value="<?php echo $info[0][1]; ?>">
-            <a href="javascript:{}" onclick="document.getElementById('my_form').submit();">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Oui
+<div class="login-box">
+    <h2>Etes vous sur de vouloir supprimer cet utilisateur ?</h2>
+    <form autocomplete="off" id="my_form" method="post">
+        <input type="text" name="username" hidden id="" value="<?php echo $info[0][1]; ?>">
+        <a href="javascript:{}" onclick="document.getElementById('my_form').submit();">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Oui
             <a/>
 
-            <a style="float: right;" href="javascript:{}" onclick="document.location.href = "allUsers.php"">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Non
+            <a style="float: right;" href="javascript:{}" onclick="document.location.href = " allUsers.php"">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Non
             <a/>
-        </form>
-    </div>
+    </form>
+</div>
 </body>
 
 </html>

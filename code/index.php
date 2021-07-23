@@ -5,7 +5,7 @@ include "func.php";
 // var_dump($_GET);
 
 //vérifie si il y eu une requète post et si il y en a une fait la fonction fileUpload
-if(isset($_POST)){
+if (isset($_POST)) {
     fileUpload($_FILES);
 }
 
@@ -85,14 +85,16 @@ if(isset($_POST)){
         ?>
         <button class="btn btn-outline-danger" onclick="document.location.href = 'unzip.php'">Reload files</button>
         <br>
-        <button class="btn btn-outline-danger" onclick="document.location.href = 'allUsers.php'">Voir tous les utilisateurs</button>
+        <button class="btn btn-outline-danger" onclick="document.location.href = 'allUsers.php'">Voir tous les
+            utilisateurs
+        </button>
         <?php
     }
     ?>
 </aside>
 <?php
-    //pour les test
-    //TestExif("20210720");
+//pour les test
+//TestExif("20210720");
 ?>
 <table class="container" id="test">
     <?php
@@ -102,13 +104,15 @@ if(isset($_POST)){
 </table>
 <?php
 if ($_SESSION["admin"]) {
-?>
+    ?>
     <!--Form qui permet l'upload du fichier zip-->
     <form action="" method="post" id="my_form" enctype="multipart/form-data">
         <input type="file" class="form-control" accept="application/zip" name="upload" id="upload">
-        <button href="javascript:{}" onclick="document.getElementById('my_form').submit();" class="btn btn-danger" style="width: max-content" >Envoyer le fichier</button>
+        <button href="javascript:{}" onclick="document.getElementById('my_form').submit();" class="btn btn-danger"
+                style="width: max-content">Envoyer le fichier
+        </button>
     </form>
-<?php
+    <?php
 }
 ?>
 </body>

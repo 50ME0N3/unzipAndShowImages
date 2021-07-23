@@ -27,7 +27,13 @@ if ($_SESSION["username"] != null) {
                 <span></span>
                 <span></span>
                 Se déconnecter
-                <a/>
+                <a href="javascript:{}"
+                   onclick="document.location.href = 'UpdateWithoutAdminPerks.php?name=<?php echo $_SESSION["username"]; ?>'">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Modifier son profile
         </form>
     </div>
     </body>

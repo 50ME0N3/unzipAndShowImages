@@ -110,7 +110,7 @@ function echoAllUsers()
  * @param $username string le nom d'utilisateur dont on veut les infos
  * @return array retourne les infos de l'utilisateur
  */
-function getInfo(string $username)
+function getInfo(string $username): array
 {
     $conn = myPdo();
     $sel = $conn->prepare("SELECT idUsers, username, NomRole from users INNER JOIN roles on users.Roles_idRoles = roles.idRoles where username=:username limit 1");

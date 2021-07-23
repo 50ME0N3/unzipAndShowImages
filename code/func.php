@@ -34,6 +34,7 @@ function echoSpecifiedDirectory(string $directory): string
     }
     return json_encode($pic);
 }
+
 /**
  * extrait tout les fichier zip du dossier dans un autre dossier
  */
@@ -138,7 +139,8 @@ function echoDirectory()
  * @param array $FILES le fichier envoyé via l'input
  *
  */
-function fileUpload(array $FILES){
+function fileUpload(array $FILES)
+{
     $target_dir = "..\..\zippedFile\\";
     $target_file = $target_dir . basename($FILES["upload"]["name"]);
     $uploadOk = 1;
