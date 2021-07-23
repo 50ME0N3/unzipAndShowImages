@@ -1,4 +1,3 @@
-TODO: Résoudre dossier fantome (20211011) Fini
-TODO: upload de fichier zip si on a les perms d'admin Fini
-TODO: modification de son profile 
-TODO: optimisation de la fonction unzip (trés compliqué pcq j'y comprend pas grand chose)
+TODO: Résoudre dossier fantome (20211011) //// Fini
+TODO: upload de fichier zip si on a les perms d'admin //// Fini
+TODO: modification de son profile de façon sécurisée (de façon a ce qu'on aie pas a changer une var en post ou en get pour pouvoir modifier le profil de qqun d'autre)

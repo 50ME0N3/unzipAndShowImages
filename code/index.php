@@ -4,6 +4,7 @@
 include "func.php";
 // var_dump($_GET);
 
+//vérifie si il y eu une requète post et si il y en a une fait la fonction fileUpload
 if(isset($_POST)){
     fileUpload($_FILES);
 }
@@ -90,8 +91,8 @@ if(isset($_POST)){
     ?>
 </aside>
 <?php
-//pour les test
-//        TestExif("20210720");
+    //pour les test
+    //TestExif("20210720");
 ?>
 <table class="container" id="test">
     <?php
@@ -102,6 +103,7 @@ if(isset($_POST)){
 <?php
 if ($_SESSION["admin"]) {
 ?>
+    <!--Form qui permet l'upload du fichier zip-->
     <form action="" method="post" id="my_form" enctype="multipart/form-data">
         <input type="file" class="form-control" accept="application/zip" name="upload" id="upload">
         <button href="javascript:{}" onclick="document.getElementById('my_form').submit();" class="btn btn-danger" style="width: max-content" >Envoyer le fichier</button>

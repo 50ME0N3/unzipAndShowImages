@@ -2,6 +2,9 @@
 //constante pour la taille des images
 const width = 273.6;
 const height = 182.4;
+//enlève les messages d'erreurs
+ini_set('display_errors', 0);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 //modifie le temps d'execution maximale a infinie parce que la fonction unzip met beaucoup de temps a s'effectuer
 ini_set('max_execution_time', -1);
 session_start();
@@ -21,7 +24,6 @@ function echoSpecifiedDirectory(string $directory): string
     foreach (scandir('..\..\exctractedFile\\' . $directory) as $item) {
         if ($item != "." && $item != "..") {
             if (exif_imagetype('..\..\exctractedFile\\' . $directory . '\\' . $item) == IMAGETYPE_JPEG) {
-                $imageInfo = getimagesize('..\..\exctractedFile\\' . $directory . '\\' . $item);
                 if (exif_read_data('..\..\exctractedFile\\' . $directory . '\\' . $item)["Orientation"] == 1) {
                     $pic[$item] = array(height, width);
                 } elseif (exif_read_data('..\..\exctractedFile\\' . $directory . '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . $directory . '\\' . $item)["Orientation"] == 8) {
@@ -32,11 +34,6 @@ function echoSpecifiedDirectory(string $directory): string
     }
     return json_encode($pic);
 }
-
-ini_set('display_errors', 0);
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
-$hour = date('H');
-$dividedBy = 20;
 /**
  * extrait tout les fichier zip du dossier dans un autre dossier
  */
@@ -82,6 +79,7 @@ function echoImage()
 {
     $lastModified = "test";
     $files = array();
+    //regarde quel est le dernier dossier modifier
     if ($handle = opendir('..\..\exctractedFile')) {
         while (false !== ($file = readdir($handle))) {
             if ($file != "." && $file != "..") {
@@ -105,6 +103,8 @@ function echoImage()
         }
     }
     $i = 0;
+
+    //affiche toutes les images du dossier dans le tableau
     foreach (scandir('..\..\exctractedFile\\' . $lastModified) as $item) {
         if ($item != "." && $item != "..") {
             //var_dump(exif_read_data('..\..\exctractedFile\\' . substr($lastModified, 0, -4) . '\\' . $item)["Orientation"]);
@@ -132,6 +132,12 @@ function echoDirectory()
     }
 }
 
+/**
+ * Upload un fichier zip dans le dossier zippedFile
+ * TODO: Gestion du chemin a l'appele de la fonction
+ * @param array $FILES le fichier envoyé via l'input
+ *
+ */
 function fileUpload(array $FILES){
     $target_dir = "..\..\zippedFile\\";
     $target_file = $target_dir . basename($FILES["upload"]["name"]);

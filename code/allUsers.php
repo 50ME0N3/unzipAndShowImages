@@ -1,6 +1,5 @@
 <?php
 include "dao.php";
-//affiche tout les utilisateur si l'utilisateur en a les permissions
 ?>
 <!doctype html>
 <html lang="en">
