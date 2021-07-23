@@ -10,7 +10,7 @@ include "dao.php";
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/allUsers.css">
-    <title>Document</title>
+    <title>Affichage de touts les utilisateurs du site</title>
 </head>
 <body>
 <?php

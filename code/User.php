@@ -10,7 +10,7 @@ if ($_SESSION["username"] != null) {
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
+        <title>Son profile</title>
         <link rel="stylesheet" href="css/user.css">
     </head>
     <body>
@@ -27,13 +27,14 @@ if ($_SESSION["username"] != null) {
                 <span></span>
                 <span></span>
                 Se déconnecter
-                <a href="javascript:{}"
-                   onclick="document.location.href = 'UpdateWithoutAdminPerks.php?name=<?php echo $_SESSION["username"]; ?>'">
+                <!--Permet l'envoie du form sans d'input de type submit-->
+                <a href="javascript:{}" onclick="document.location.href = 'UpdateWithoutAdminPerks.php?name=<?php echo $_SESSION["username"] ?>'">
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     Modifier son profile
+
         </form>
     </div>
     </body>

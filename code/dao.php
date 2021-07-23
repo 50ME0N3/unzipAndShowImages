@@ -64,13 +64,12 @@ function login(string $username, string $Password)
         } else
             $erreur = "Mauvais login ou mot de passe!";
     } else {
-        echo "erreur";
-        var_dump($result);
+        echo "<script>alert(`Ton nom d'utilisateur ou mot de passe est erroné`)</script>";
     }
 }
 
 /**
- * affiche tout les utilisateur présent dans la base
+ * affiche tout les utilisateur présent dans la base et met un lien de modification ou de suppression a disposition des admins
  */
 function echoAllUsers()
 {
@@ -94,9 +93,12 @@ function echoAllUsers()
 			<td>" . $value[5] . "</td>
 			";
         if (count($_SESSION) != 0) {
-            if ($_SESSION["admin"]) {
+            if ($_SESSION["admin"] && $value[5] != "admin") {
                 echo "<td><a class=\"btn2\" href=\"update.php?name=" . $value[1] . "\">modifier</a></td>";
                 echo "<td><a class=\"btn2\" href=\"delete.php?name=" . $value[1] . "\">supprimer</a></td>";
+            }
+            else{
+                echo "<td></td><td></td>";
             }
         }
         echo "</tr>";

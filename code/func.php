@@ -49,6 +49,7 @@ function unzip()
                 $zip->close();
             }
         }
+        unlink("..\..\zippedFile\\" . $value);
     }
 }
 
@@ -113,9 +114,9 @@ function echoImage()
                 echo "<tr></tr>";
             }
             if (exif_read_data('..\..\exctractedFile\\' . $lastModified . '\\' . $item)["Orientation"] == 1) {
-                echo '<td><center><img class="rounded img-thumbnail" height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/><center></td>';
+                echo '<td><center><a target="_blank" href="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '"><img class="rounded img-thumbnail" height="' . height . '" width="' . width . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/></a><center></td>';
             } elseif (exif_read_data('..\..\exctractedFile\\' . $lastModified . '\\' . $item)["Orientation"] == 6 || exif_read_data('..\..\exctractedFile\\' . $lastModified . '\\' . $item)["Orientation"] == 8) {
-                echo '<td><center><img class="rounded img-thumbnail" height="' . width . '" width="' . height . '" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/></center></td>';
+                echo '<td><center><a target="_blank" href="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '"><img class="rounded img-thumbnail" height="' . width . '" width="' . height . '" href="" src="..\..\exctractedFile\\' . $lastModified . '\\' . $item . '" alt="' . $item . '"/></a></center></td>';
             }
             $i++;
         }

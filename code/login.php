@@ -13,7 +13,7 @@ if (isset($_POST["username"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
-    <title>Document</title>
+    <title>Se connecter</title>
 </head>
 
 <body>
@@ -33,7 +33,7 @@ if (isset($_POST["username"])) {
             <span></span>
             <span></span>
             <span></span>
-            Submit
+            Se connecter
     </form>
 </div>
 </body>

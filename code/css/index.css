@@ -3,9 +3,10 @@ aside {
 }
 
 table.container {
-    width: 845px;
-    margin: auto;
+    width: 840px;
+    margin-bottom: 20px;
     background: black;
+    border-radius: 5px;
 }
 
 .margin {
@@ -14,6 +15,11 @@ table.container {
 }
 
 body {
-    background: linear-gradient(#141e30, #243b55);
+    background: linear-gradient(#003C54, #3892B0);
     height: available;
+}
+
+.fileUpload{
+    width: 100%;
+    box-sizing: border-box;
 }

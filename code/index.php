@@ -53,7 +53,7 @@ if (isset($_POST)) {
                             if (i % 3 == 0) {
                                 $("table").append('<tr>')
                             }
-                            $("table").append('<td><center><img class="rounded img-thumbnail" height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '"></></td>')
+                            $("table").append('<td><center><a target="_blank" href="../../exctractedFile\\' + day + '\\' + this + '"><img class="rounded img-thumbnail" height="' + response[this][0] + '" width="' + response[this][1] + '" src="../../exctractedFile\\' + day + '\\' + this + '" alt="' + this + '"></a></></td>')
                             i++;
                         })
                     }
@@ -62,22 +62,18 @@ if (isset($_POST)) {
         });
     </script>
 
-    <title>Index</title>
+    <title>Photo</title>
 </head>
 
 <body>
-<header>
-    <?php
-    //si l'utilisateur est connecter lui met un lien lui permettant de voir son profil sinon lui met les boutton pour le redirigé sur les page de login ou signin
-    if ($_SESSION["username"] != null) {
-        echo "<a href='User.php'>Montre moi qui je suis</a>";
-    } else {
-        echo "<a href='login.php'><button class='btn btn-outline-danger'>se connecter</button></a><br><a href='signin.php'><button class='btn btn-outline-danger'>s'inscrire</button></a>";
-    }
-    ?>
-</header>
 <aside>
     <?php
+    //si l'utilisateur est connecter lui met un lien lui permettant de voir son profil sinon lui met les boutton pour le redirigé sur les pages de login ou signin
+    if ($_SESSION["username"] != null) {
+        echo "<a href='User.php'><button class='btn btn-outline-danger'>Montre moi qui je suis</button></a><br>";
+    } else {
+        echo "<a href='login.php'><button class='btn btn-outline-danger'>se connecter</button></a><br><a href='signin.php'><button class='btn btn-outline-danger'>s'inscrire</button></a><br>";
+    }
     //affiche un boutton pour chaque dossier
     echoDirectory();
     //si l'utilisateur est un admin on affiche un boutton lui permettant de reload tout les fichier zip
@@ -108,8 +104,8 @@ if ($_SESSION["admin"]) {
     <!--Form qui permet l'upload du fichier zip-->
     <form action="" method="post" id="my_form" enctype="multipart/form-data">
         <input type="file" class="form-control" accept="application/zip" name="upload" id="upload">
-        <button href="javascript:{}" onclick="document.getElementById('my_form').submit();" class="btn btn-danger"
-                style="width: max-content">Envoyer le fichier
+        <button href="javascript:{}" onclick="document.getElementById('my_form').submit();" class="btn btn-danger fileUpload">
+            Envoyer le fichier
         </button>
     </form>
     <?php
