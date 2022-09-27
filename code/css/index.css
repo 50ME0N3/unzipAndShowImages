@@ -1,25 +1,25 @@
 aside {
-    float: left;
+  float: left;
 }
 
 table.container {
-    width: 840px;
-    margin-bottom: 20px;
-    background: black;
-    border-radius: 5px;
+  width: 840px;
+  margin-bottom: 20px;
+  background: black;
+  border-radius: 5px;
 }
 
 .margin {
-    margin-right: 10%;
-    margin-left: 10%;
+  margin-right: 10%;
+  margin-left: 10%;
 }
 
 body {
-    background: linear-gradient(#003C54, #3892B0);
-    height: available;
+  background: linear-gradient(#003c54, #3892b0);
+  height: available;
 }
 
-.fileUpload{
-    width: 100%;
-    box-sizing: border-box;
+.fileUpload {
+  width: 100%;
+  box-sizing: border-box;
 }
